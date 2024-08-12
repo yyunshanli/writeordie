@@ -1,1 +1,1 @@
-# writeordie
+# write-or-die
