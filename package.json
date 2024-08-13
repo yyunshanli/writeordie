@@ -23,6 +23,7 @@
     "npm": ">=6.0.0"
   },
   "devDependencies": {
+    "npm-run-all": "^4.x.x",
     "concurrently": "^8.2.2"
   }
 }
