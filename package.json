@@ -4,12 +4,15 @@
   "description": "",
   "main": "script.js",
   "scripts": {
-    "start": "concurrently \"python app.py\" \"node server.js\""
+    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "node server.js",
+    "client": "react-scripts start"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "concurrently": "^8.2.2",
     "axios": "^1.7.3",
     "cors": "^2.8.5",
     "express": "^4.19.2"
