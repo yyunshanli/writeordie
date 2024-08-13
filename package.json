@@ -4,7 +4,9 @@
   "description": "",
   "main": "script.js",
   "scripts": {
-    "start": "concurrently \"npm run server\" \"npm run python-script\"",
+    "start": "npm-run-all --serial install-python-dependencies start-concurrently",
+    "install-python-dependencies": "pip install -r requirements.txt",
+    "start-concurrently": "concurrently \"npm run server\" \"npm run python-script\"",
     "server": "node server.js",
     "python-script": "python app.py"
   },
@@ -12,7 +14,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "concurrently": "^8.2.2",
     "axios": "^1.7.3",
     "cors": "^2.8.5",
     "express": "^4.19.2"
