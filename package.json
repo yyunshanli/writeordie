@@ -4,9 +4,9 @@
   "description": "",
   "main": "script.js",
   "scripts": {
-    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "start": "concurrently \"npm run server\" \"npm run python-script\"",
     "server": "node server.js",
-    "client": "react-scripts start"
+    "python-script": "python app.py"
   },
   "keywords": [],
   "author": "",
