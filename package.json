@@ -4,7 +4,7 @@
   "description": "",
   "main": "script.js",
   "scripts": {
-    "start": "node server.js & python app.py"
+    "start": "pip install -r requirements.txt && concurrently \"node server.js\" \"python app.py\""
   },
   "keywords": [],
   "author": "",
