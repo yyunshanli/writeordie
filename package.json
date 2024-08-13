@@ -4,7 +4,7 @@
   "description": "",
   "main": "script.js",
   "scripts": {
-    "start": "pip install -r requirements.txt && concurrently \"node server.js\" \"python app.py\""
+    "start": "concurrently \"node server.js\" \"python app.py\""
   },
   "keywords": [],
   "author": "",
@@ -13,5 +13,8 @@
     "axios": "^1.7.3",
     "cors": "^2.8.5",
     "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "concurrently": "^7.0.0"
   }
 }
