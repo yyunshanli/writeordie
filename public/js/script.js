@@ -14,10 +14,18 @@ let typingTimeout; // timeout handle for detecting inactivity
 let summarizing = false; // flag to prevent multiple summarize requests
 
 function updateSnakeHeadPosition() {
-    // get the current width of the timer bar
+    // get the current width of the timer bar, the snake head, and the container
     const timerBarWidth = timerBar.clientWidth;
-    snakeHead.style.left = `${timerBarWidth}px`;
+    const snakeHeadWidth = snakeHead.clientWidth;
+    const containerWidth = timerBar.parentElement.clientWidth; // Timer container width
+
+    const percentFilled = (parseFloat(timerBar.style.width) || 0) / 100;
+    const snakeHeadPosition = percentFilled * (timerBarWidth - snakeHeadWidth);
+
+    const maxPosition = containerWidth - snakeHeadWidth;
+    snakeHead.style.left = `${Math.min(Math.max(snakeHeadPosition, 0), maxPosition)}px`;
 }
+
 
 function startTimer() {
     countdown = setInterval(() => {
@@ -26,9 +34,10 @@ function startTimer() {
             timerBar.style.width = '100%'; // fill entire bar
             textarea.disabled = true; // disable the text area
             saveButton.disabled = false; // enable the save button
-            snakeHead.style.right = '0';
+            updateSnakeHeadPosition()
         } else {
             timeLeft--;
+            updateSnakeHeadPosition();
             const percentFilled = ((5 - timeLeft) / 5) * 100; // calculate fill percentage
             timerBar.style.width = percentFilled + '%'; // update bar width
             updateSnakeHeadPosition(); // update snake head position
@@ -57,7 +66,9 @@ function resetTimer() {
         textarea.disabled = true; // disable the text area
         saveButton.disabled = false; // enable the save button
         summarizeButton.disabled = false; // enable the summarize button
+        updateSnakeHeadPosition()
     }, 5000); // 5 seconds timeout for inactivity
+    updateSnakeHeadPosition()
 }
 
 function saveText() {
