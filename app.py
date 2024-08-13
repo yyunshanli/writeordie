@@ -5,7 +5,7 @@ import os
 # initialize Flask application
 app = Flask(__name__)
 # initialize Hugging Face summarization pipeline
-summarizer = pipeline('summarization')
+summarizer = pipeline('summarization', model='facebook/bart-large')
 
 # define route to handle POST requests to '/summarize'
 @app.route('/summarize', methods=['POST'])
