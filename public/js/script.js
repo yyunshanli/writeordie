@@ -80,6 +80,8 @@ function resetPage() {
     summarizeButton.disabled = true; // disable the summarize button
     timerStarted = false; // reset timer started flag
     snakeHead.style.left = '0';
+    summaryElement.textContent = ''; // clear the summary text
+    summaryElement.style.display = 'none'; // hide the summary element
 }
 
 async function summarizeText() {
