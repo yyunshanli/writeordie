@@ -1,3 +1,4 @@
+// initialize variable for each element
 const textarea = document.getElementById('textArea');
 const timerBar = document.getElementById('timerBar');
 const saveButton = document.getElementById('saveButton');
@@ -7,16 +8,15 @@ const summaryElement = document.getElementById('summary');
 const snakeHead = document.getElementById('snakeHead');
 
 let countdown;
-let timeLeft = 5; // Countdown from 5 seconds
-let timerStarted = false; // Flag to track if timer has started
-let typingTimeout; // Timeout handle for detecting inactivity
-let summarizing = false; // Flag to prevent multiple summarize requests
+let timeLeft = 5; // countdown from 5 seconds
+let timerStarted = false; // flag to track if timer has started
+let typingTimeout; // timeout handle for detecting inactivity
+let summarizing = false; // flag to prevent multiple summarize requests
 
 function updateSnakeHeadPosition() {
-    // Get the current width of the timer bar
+    // get the current width of the timer bar
     const timerBarWidth = timerBar.clientWidth;
-    // Set the snake head's position relative to the width of the timer bar
-    snakeHead.style.left = `${timerBarWidth}px`; // place snake head at the end of the timer bar
+    snakeHead.style.left = `${timerBarWidth}px`;
 }
 
 function startTimer() {
@@ -42,21 +42,21 @@ function resetTimer() {
         timerStarted = true;
     }
     timeLeft = 5;
-    timerBar.style.width = '0%'; // Reset bar width
-    textarea.disabled = false; // Enable the text area
-    saveButton.disabled = true; // Disable the save button
-    summarizeButton.disabled = true; // Disable the summarize button
+    timerBar.style.width = '0%'; // reset bar width
+    textarea.disabled = false; // enable the text area
+    saveButton.disabled = true; // disable the save button
+    summarizeButton.disabled = true; // disable the summarize button
 
-    // Clear the previous timeout to reset typing detection
+    // clear the previous timeout to reset typing detection
     clearTimeout(typingTimeout);
     
-    // Set a timeout to detect inactivity
+    // set a timeout to detect inactivity
     typingTimeout = setTimeout(() => {
         clearInterval(countdown);
-        timerBar.style.width = '100%'; // Fill the bar completely
-        textarea.disabled = true; // Disable the text area
-        saveButton.disabled = false; // Enable the save button
-        summarizeButton.disabled = false; // Enable the summarize button
+        timerBar.style.width = '100%'; // fill entire bar
+        textarea.disabled = true; // disable the text area
+        saveButton.disabled = false; // enable the save button
+        summarizeButton.disabled = false; // enable the summarize button
     }, 5000); // 5 seconds timeout for inactivity
 }
 
@@ -73,26 +73,26 @@ function resetPage() {
     clearInterval(countdown);
     clearTimeout(typingTimeout);
     timeLeft = 5;
-    timerBar.style.width = '0%'; // Reset bar width
+    timerBar.style.width = '0%'; // reset bar width
     textarea.value = '';
-    textarea.disabled = false; // Enable the text area
-    saveButton.disabled = true; // Disable the save button
-    summarizeButton.disabled = true; // Disable the summarize button
-    timerStarted = false; // Reset timer started flag
+    textarea.disabled = false; // enable the text area
+    saveButton.disabled = true; // disable the save button
+    summarizeButton.disabled = true; // disable the summarize button
+    timerStarted = false; // reset timer started flag
     snakeHead.style.left = '0';
 }
 
 async function summarizeText() {
-    if (summarizing) return; // Prevent multiple requests
-    summarizing = true; // Set flag to true while summarizing
-    summarizeButton.disabled = true; // Disable the summarize button
+    if (summarizing) return; // prevent multiple requests
+    summarizing = true; // set flag to true while summarizing
+    summarizeButton.disabled = true; // disable the summarize button
 
-    summaryElement.textContent = 'Summarizing...';
+    summaryElement.textContent = 'Summarizing...'; // placeholder during summarization
     summaryElement.style.display = 'block';
 
     const text = textarea.value;
     try {
-        // Send request to Node.js server
+        // send request to Node.js server
         const response = await fetch('/summarize', {
             method: 'POST',
             headers: {
@@ -101,39 +101,40 @@ async function summarizeText() {
             body: JSON.stringify({ content: text }),
         });
 
+        // error handling
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
 
-        // Handle response
+        // handle response
         const data = await response.json();
         summaryElement.textContent = data.summary || 'No summary available';
-    } catch (error) {
+    } catch (error) { // error handling
         console.error('Error summarizing text:', error);
         summaryElement.textContent = 'Error summarizing text';
     } finally {
-        summarizing = false; // Reset flag after request
-        summarizeButton.disabled = false; // Re-enable the summarize button
+        summarizing = false; // reset flag after request
+        summarizeButton.disabled = false; // re-enable the summarize button
     }
 }
 
-// Ensure only one event listener is attached
+// event listeners
 summarizeButton.removeEventListener('click', summarizeText);
 summarizeButton.addEventListener('click', (event) => {
-    event.preventDefault(); // Prevent default behavior
+    event.preventDefault(); 
     summarizeText();
 });
 
-
 document.addEventListener('DOMContentLoaded', () => {
-    updateSnakeHeadPosition(); // Ensure snake head is correctly positioned initially
+    updateSnakeHeadPosition(); 
 });
+
 document.addEventListener('DOMContentLoaded', function() {
     const textarea = document.querySelector('textarea');
 
-    textarea.addEventListener('input', function() {
-        this.style.height = 'auto'; // Reset the height
-        this.style.height = (this.scrollHeight) + 'px'; // Set the height to the scroll height
+    textarea.addEventListener('input', function() { //expand and contract text area
+        this.style.height = 'auto'; 
+        this.style.height = (this.scrollHeight) + 'px'; 
     });
 });
 
@@ -141,9 +142,9 @@ window.addEventListener('resize', updateSnakeHeadPosition);
 textarea.addEventListener('input', resetTimer);
 saveButton.addEventListener('click', saveText);
 resetButton.addEventListener('click', resetPage);
-summarizeButton.removeEventListener('click', summarizeText);
+summarizeButton.removeEventListener('click', summarizeText); 
 summarizeButton.addEventListener('click', (event) => {
-    event.preventDefault(); // Prevent any default behavior
+    event.preventDefault(); 
     summarizeText();
 });
 
