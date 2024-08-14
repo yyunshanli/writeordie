@@ -1,0 +1,18 @@
+FROM node:18
+
+WORKDIR /writeordie
+
+# copy the package.json and package-lock.json files
+COPY package*.json ./
+
+# install Node.js dependencies
+RUN npm install
+
+# copy the application code
+COPY . .
+
+# expose the port 
+EXPOSE 3000
+
+# start the application
+CMD ["npm", "start"]
