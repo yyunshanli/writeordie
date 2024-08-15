@@ -20,7 +20,7 @@ app.post('/summarize', async (req, res) => {
         console.log('Text received for summarization:', text);
 
         // forward text to Flask application
-        const response = await axios.post('http://localhost:5000/summarize', { content: text });
+        const response = await axios.post('http://0.0.0.0:5000/summarize', { content: text });
         const summary = response.data.summary;
 
         console.log('Response from summarization service:', response.data);
