@@ -1,4 +1,5 @@
 const { spawn } = require('child_process');
+const child_process = require('child_process');
 
 // Step 1: Install Python dependencies from requirements.txt
 const installPythonDeps = spawn('pip', ['install', '-r', 'requirements.txt'], { stdio: 'inherit' });
