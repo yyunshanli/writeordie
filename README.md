@@ -8,5 +8,5 @@ Do not stop typing... or else the snake will eat the apple
 
 ## Running the Web App
 In the project directory run <br> 
-```npm install``` (build command) <br>
-```npm start``` (start command)
+build command: ```npm install```<br>
+start command: ```npm start```
