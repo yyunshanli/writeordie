@@ -37,7 +37,6 @@ function startTimer() {
             updateSnakeHeadPosition()
         } else {
             timeLeft--;
-            updateSnakeHeadPosition();
             const percentFilled = ((5 - timeLeft) / 5) * 100; // calculate fill percentage
             timerBar.style.width = percentFilled + '%'; // update bar width
             updateSnakeHeadPosition(); // update snake head position
